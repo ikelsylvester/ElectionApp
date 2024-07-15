@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+   
+<div class="login-container">
+    <div class="icon"></div>
+    <h2>USER LOGIN</h2>
+    <form action="/login"  method="post" id="login_form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="user_name" name="username" required>
+      </div>
+      <form id="">
+      <div class="form-group">
+        <label style="border: none;" for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div  class="checkbox-group">
+        <div class="form">
+            
+          <input type="checkbox" id="remember-me" name="remember-me"> 
+          <label for="remember-me">Remember me</label>
+        </div class="a-div">
+        <a href="reset_password.html" class="forgot-password">Forgot Password?</a>
+      </div>
+      <button type="submit" class="login-btn">LOGIN</button>
+      <div class="sign">
+       <p>Don't have and account?</p> <a href="../html/SignUP.html">Sign Up</a>
+      </div>
+     
+    </form>
+  </div>
+  <script src="../Javascript/login.js"></script>
+  
+  </body>
+  </html>
+</body>
+</html>~
