@@ -1,0 +1,63 @@
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Optional: Style body for better spacing */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 20px;
+}
+
+/* Style form container */
+.container {
+    max-width: 500px; /* Adjust width as needed */
+    margin: 0 auto; /* Center align the form */
+    background-color: #fff; /* White background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+/* Style form group (label + input) */
+.form-group {
+    margin-bottom: 20px; /* Adjust spacing between form groups */
+}
+
+/* Style form labels */
+.form-group label {
+    display: block; /* Make labels block-level for better alignment */
+    margin-bottom: 8px; /* Adjust spacing between label and input */
+    font-weight: bold; /* Optionally make labels bold */
+}
+
+/* Style form inputs */
+.form-group input[type="text"], .form-group input[type="file"] {
+    width: calc(100% - 16px); /* Full width inputs minus padding */
+    padding: 10px; /* Padding for input fields */
+    border: 1px solid #ccc; /* Basic border style */
+    border-radius: 4px; /* Rounded corners for inputs */
+    font-size: 16px; /* Font size for inputs */
+}
+
+/* Style submit button */
+form button[type="submit"] {
+    background-color: blue; /* Green background */
+    color: white; /* White text */
+    padding: 12px 20px; /* Padding around text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+    font-size: 16px; /* Font size */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        width: 100%; /* Full width on smaller screens */
+    }
+}

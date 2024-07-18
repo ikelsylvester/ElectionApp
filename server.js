@@ -1,78 +1,157 @@
 const express = require("express");
-const path = require ("path")
-const bodyparser =require("body-parser")
+const path = require("path");
+const bodyParser = require("body-parser");
+const sqlite3 = require('sqlite3').verbose();
+
+
+
 const app = express();
-const port= 3000;
+const port = 3000;
 
 
 
-app.set("view engine", "ejs")
-app.use(express.static((path.join(__dirname, "Public"))))
-app.use(bodyparser.urlencoded({extended:true}))
-app.use(bodyparser.json())
-let users= []
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "Public")));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('./election.db')
+// SQLite database initialization
+const db = new sqlite3.Database('./election.db');
 
+// Database schema creation
 db.serialize(() => {
-   db.run('CREATE TABLE IF NOT EXISTS auth( id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, user_id INT)');
+    db.run('CREATE TABLE IF NOT EXISTS auth( id INTEGER PRIMARY KEY, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, user_id INTEGER)');
+    db.run('CREATE TABLE IF NOT EXISTS roles( id INTEGER PRIMARY KEY, role VARCHAR(50) NOT NULL)');
+    db.run('CREATE TABLE IF NOT EXISTS users( id INTEGER PRIMARY KEY, first_name VARCHAR(50) NOT NULL, middle_name VARCHAR(50) NULL, last_name VARCHAR(50) NOT NULL, DOB DATE NOT NULL)');
+    db.run('CREATE TABLE IF NOT EXISTS parties( id INTEGER PRIMARY KEY, party VARCHAR(50) NOT NULL, logo BLOB)');
+    db.run('CREATE TABLE IF NOT EXISTS positions( id INTEGER PRIMARY KEY, position VARCHAR(50) NOT NULL, logo BLOB)');
+    db.run('CREATE TABLE IF NOT EXISTS candidates( id INTEGER PRIMARY KEY, first_name VARCHAR(50) NOT NULL, middle_name VARCHAR(50) NULL, last_name VARCHAR(50) NOT NULL, position_id INTEGER NOT NULL, party_id INTEGER NOT NULL, photo BLOB)');
+    db.run('CREATE TABLE IF NOT EXISTS votes( id INTEGER PRIMARY KEY, candidate_id INTEGER NOT NULL, vote INTEGER NOT NULL)');
+});
 
-   db.run('CREATE TABLE IF NOT EXISTS roles( id INT AUTO_INCREMENT PRIMARY KEY, role VARCHAR(50) NOT NULL)');
+// Example users array (for testing purposes)
+let users = [];
 
-   db.run('CREATE TABLE IF NOT EXISTS users( id INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(50) NOT NULL,   middle_name VARCHAR(50) NULL,last_name VARCHAR(50) NOT NULL, DOB DATE NOT NULL)');
+// Route to render dashboard
+app.get("/dashboard", (req, res) => {
+    res.render("dashboard.ejs");
+});
 
-   db.run('CREATE TABLE IF NOT EXISTS parties( id INT AUTO_INCREMENT PRIMARY KEY, party VARCHAR(50) NOT NULL,logo blob)');
+// Route to render login form
+app.get("/login", (req, res) => {
+    res.render("login.ejs");
+});
 
-   db.run('CREATE TABLE IF NOT EXISTS positions( id INT AUTO_INCREMENT PRIMARY KEY, position VARCHAR(50) NOT NULL,logo blob)');
-
-   db.run('CREATE TABLE IF NOT EXISTS candidates( id INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(50) NOT NULL,   middle_name VARCHAR(50) NULL,last_name VARCHAR(50) NOT NULL, position_id INT NOT NULL,party_id INT NOT NULL, photo blob )');
-
-   db.run('CREATE TABLE IF NOT EXISTS votes( id INT AUTO_INCREMENT PRIMARY KEY, candidate_id INT NOT NULL, vote INT NOT NULL )');
-
-  db.each('SELECT * FROM auth', (err, row) => {
-    console.log(row)
-  }) 
-})
-
-db.close()
-
-app.get("/dashboard", (req,res)=>{
-    res.render("dashboard.ejs")
-})
-app.get("/login", (req,res)=>{
-    res.render("login.ejs")
-})
-app.post("/login", (req,res)=>{   
-
-    const {username, password}=req.body
-   
-
-    const user= users.find(user=>user.username===username && user.password=== password);
-    if(user){
-        res.redirect("/dashboard")
-    }else{
-        res.redirect("Invalid name or password")
+// Route to handle login form submission
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
+    // Example: Check credentials against a database or users array
+    const user = users.find(user => user.username === username && user.password === password);
+    if (user) {
+        res.redirect("/dashboard");
+    } else {
+        res.send("Invalid username or password");
     }
 });
 
+// Route to render signup form
+app.get("/signUp", (req, res) => {
+    res.render("signUp.ejs");
+});
 
-app.get("/signUp", (req,res)=>{
-    res.render("signUp.ejs")
-})
-app.post("/signUp",(req,res)=>{
-    const userData={
-        username:req.body.username,
-        password:req.body.password,
-        email:req.body.email,
+// Route to handle signup form submission
+app.post("/signUp", (req, res) => {
+    const userData = {
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email
     };
-    //Store user data
+    // Store user data (example: push to users array)
     users.push(userData);
-    console.log(`User SignUp:`, userData)
-     res.redirect("/login")
-})
- 
+    console.log(`User SignUp:`, userData);
+    res.redirect("/login");
+});
 
-app.listen(port,()=>{
-    console.log(`App is listening to port ${port}`)
+// Route to render candidates registration form
+app.get("/candidates_registration", (req,res)=>{
+    res.render("candidates_registration.ejs")
 })
+// Handle POST request to /party_registration
+app.post("/candidates_registration", (req, res)=>{
+    const {id,firstName,middleName,lastName,position,partyID,photo}= req.body;
+    db.run("INSERT INTO candidates(id, first_name, middle_name, last_name,postion_id,photo) VALUES(?,?,?,?,?,?,?)"
+       [id, firstName, middleName, lastName, position, partyID, photo],
+    function(err){
+
+        if(err){
+          return console.err(err.message);
+        }
+         res.send('Candidate registered successfully');
+     });
+});
+
+// Route to render voters registration form
+app.get("/voters", (req, res)=>{
+    res.render("voters.ejs")
+});
+app.post("/voters", (req,res)=>{
+    const {username, password}= req.body;
+    db.run("INSERT INTO auth(username, password) VALUES (?,?),"
+     [username, password],
+    function(err){
+        if(err){
+            return console.err(err.message);
+        }
+        console.log(`A row has been insert with ${this.lastID}`);
+
+        res.redirect("/login2")
+    });
+});
+// Route to render login form
+app.get("/login2", (req, res)=>{
+    res.render("login2.ejs")
+});
+
+app.post("/voters", (req,res)=>{
+    const {id, firstName, middleName,lastName,dob}=req.body;
+    db.run("INSERT INTO users(id,first_name, middle_name,last_name,DOB) VALUES (?,?),"
+     [id, firstName, middleName,lastName,dob],
+    function(err){
+        if(err){
+            return console.err(err.message);
+        }
+        console.log(`A row has been insert with ${this.lastID}`);
+
+       
+    }
+    );
+});
+
+// Route to render party registration form
+app.get("/party_registration", (req, res)=>{
+    res.render("Party_registration.ejs")
+});
+// Handle POST request to /party_registration
+app.post("/party_registration", (req, res) => {
+    const { partyName, partyLogo } = req.body;
+
+    
+    db.run(
+        'INSERT INTO parties (party, logo) VALUES (?, ?)',
+        [partyName, partyLogo],
+        function(err) {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log(`A row has been inserted with rowid ${this.lastID}`);
+            // Respond with a success message or redirect as needed
+            res.send('Party registered successfully');
+        }
+    );
+});
+
+
+// Start server
+app.listen(port, () => {
+    console.log(`App is listening to port ${port}`);
+});

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Registration</title>
+    <link rel="stylesheet" href="/css/party_registration.css">  
+</head>
+<body>
+    <div class="container">
+        <h2>Party Registration</h2>
+        <form action="/party_registration" method="post">
+            <div class="form-group">
+                <label for="partyName">Party Name:</label>
+                <input type="text" id="partyName" name="partyName" required>
+            </div>
+            <div class="form-group">
+                <label for="partyLogo">Party Logo:</label>
+                <input type="file" id="partyLogo" name="partyLogo" accept="image/*" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
