@@ -3,59 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Voters Registration</title>
     <link rel="stylesheet" href="/css/voters.css">
 </head>
 <body>
+   
     <div class="container">
-        <h2 style="text-align: center;">VOTERS REGISTRATION</h2>
-        <form action="/voters" method="post">
+        <h2>VOTERS REGISTRATION</h2>
+        <form id="registrationForm" action="/voters" method="post" nctype="multipart/form-data">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
+            </div>
     
-          <!-- First Name Input Field -->
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" placeholder="Enter First Name">
-          </div>
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" id="middleName" name="middleName" placeholder="Enter Middle Name">
+            </div>
     
-          <!-- Middle Name Input Field -->
-          <div class="form-group">
-            <label for="middleName">Middle Name</label>
-            <input type="text" id="middleName" name="middleName" placeholder="Enter Middle Name">
-          </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
+            </div>
     
-          <!-- Last Name Input Field -->
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name">
-          </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
     
-          <!-- DOB Input Field -->
-          <div class="form-group">
-            <label for="dob">Date of Birth</label>
-            <input type="date" id="dob" name="dob">
-          </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+            </div>
     
-          <!-- Username Input Field -->
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter Username">
-          </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            </div>
     
-          <!-- Password Input Field -->
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter Password">
-          </div>
-           <!-- ID Input Field -->
-           <div class="form-group">
-            <label for="id">Confirm Password</label>
-            <input type="password" id="c_password" name="c_password" placeholder="Confirm password">
-          </div>
+            <div class="form-group">
+                <label for="c_password">Confirm Password</label>
+                <input type="password" id="c_password" name="c_password" placeholder="Confirm Password" required>
+            </div>
     
-          <!-- Submit Button -->
-          <button type="submit">Submit</button>
+            <div class="form-group">
+                <label for="profile_photo">Profile Photo</label>
+                <input type="file" id="profile_photo" name="profile_photo" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="profile_photo">Role:</label>
+                <select  name="role_id" id="role_id">
+                    <% row.map((row)=>{%>
+                        <option value="<%= row.id %>"><%= row.role %></option>
+                    <%})%>  
+                </select>
+
+            </div>
+            <button type="submit">Submit</button>
         </form>
-      </div>
-    
+    </div>
+
+    <script src="form-validation.js"></script>
 </body>
 </html>

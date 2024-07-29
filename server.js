@@ -22,12 +22,14 @@ const db = new sqlite3.Database('./election.db');
 db.serialize(() => {
     db.run('CREATE TABLE IF NOT EXISTS auth( id INTEGER  PRIMARY KEY AUTOINCREMENT, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, user_id INTEGER)');
     db.run('CREATE TABLE IF NOT EXISTS roles( id INTEGER  PRIMARY KEY AUTOINCREMENT, role VARCHAR(50) NOT NULL)');
-    db.run('CREATE TABLE IF NOT EXISTS users( id INTEGER  PRIMARY KEY AUTOINCREMENT, first_name VARCHAR(50) NOT NULL, middle_name VARCHAR(50) NULL, last_name VARCHAR(50) NOT NULL, DOB DATE NOT NULL)');
+    db.run('CREATE TABLE IF NOT EXISTS users( id INTEGER  PRIMARY KEY AUTOINCREMENT, first_name VARCHAR(50) NOT NULL, middle_name VARCHAR(50) NULL, last_name VARCHAR(50) NOT NULL,DOB DATE NOT NULL, photo BLOB,role_id INT)');
     db.run('CREATE TABLE IF NOT EXISTS parties( id INTEGER  PRIMARY KEY AUTOINCREMENT, party VARCHAR(50) NOT NULL, logo BLOB)');
     db.run('CREATE TABLE IF NOT EXISTS positions( id INTEGER  PRIMARY KEY AUTOINCREMENT, position VARCHAR(50) NOT NULL, logo BLOB)');
     db.run('CREATE TABLE IF NOT EXISTS candidates( id INTEGER  PRIMARY KEY AUTOINCREMENT, first_name VARCHAR(50) NOT NULL, middle_name VARCHAR(50) NULL, last_name VARCHAR(50) NOT NULL, position_id INTEGER NOT NULL, party_id INTEGER NOT NULL, photo BLOB)');
     db.run('CREATE TABLE IF NOT EXISTS votes( id INTEGER  PRIMARY KEY AUTOINCREMENT, candidate_id INTEGER NOT NULL, vote INTEGER NOT NULL)');
 });
+
+
 
 // Example users array (for testing purposes)
 let users = [];
@@ -78,14 +80,17 @@ app.get("/signUp", (req, res) => {
 
 // Route to render voters registration form
 app.get("/voters", (req, res)=>{
-    res.render("voters.ejs")
+    db.all("SELECT * FROM roles",function(err,row){
+    res.render("voters.ejs",{row})
+
+    })
 });
  app.post("/voters", (req, res) => {
-    // console.log(req.body); // Ensure req.body is populated correctly
-    const { firstName, middleName, lastName, dob,username,password } = req.body;
+    console.log(req.body); // Ensure req.body is populated correctly
+    const {firstName, middleName, lastName, dob,profile_photo,username,password,role_id } = req.body;
     db.run(
-        "INSERT INTO users(first_name, middle_name, last_name, DOB) VALUES (?,?,?,?)",
-        [firstName, middleName, lastName, dob],
+        "INSERT INTO users VALUES(?,?,?,?,?,?,?)",
+        [null,firstName, middleName, lastName,dob,profile_photo,role_id],
         function(err) {
             if (err) {
                 return console.error(err.message); // Corrected console.error
@@ -106,6 +111,13 @@ app.get("/voters", (req, res)=>{
         }
     );
 });
+
+
+
+
+
+// db.run("DELETE FROM users");
+// db.run("ALTER TABLE users ADD COLUMN first_name boolean NOT NULL");
 
 // Route to render login form
 app.get("/login2", (req, res)=>{

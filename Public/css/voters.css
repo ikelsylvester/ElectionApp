@@ -1,56 +1,61 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
 
-  .container {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
-  .form-group {
-    margin-bottom: 20px;
-  }
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  label {
-    font-weight: bold;
-  }
+.form-group {
+  margin-bottom: 15px;
+}
 
-  input[type="text"],
-  input[type="date"],
-  input[type="password"] {
-    width: 70%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 15px;
-  }
+label {
+  font-weight: bold;
+}
 
-  input[type="date"] {
-    /* Adjust date input appearance */
-    padding: 7px;
-  }
+input[type="text"],
+input[type="date"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
 
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+input[type="date"] {
+  padding: 9px;
+}
 
-  button:hover {
-    background-color: #0056b3;
-  }
- 
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
