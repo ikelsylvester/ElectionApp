@@ -89,8 +89,8 @@ app.get("/voters", (req, res)=>{
     console.log(req.body); // Ensure req.body is populated correctly
     const {firstName, middleName, lastName, dob,profile_photo,username,password,role_id } = req.body;
     db.run(
-        "INSERT INTO users VALUES(?,?,?,?,?,?,?)",
-        [null,firstName, middleName, lastName,dob,profile_photo,role_id],
+        "INSERT INTO users(first_name,middle_name,last_name,DOB,photo,role_id) VALUES(?,?,?,?,?,?)",
+        [firstName, middleName, lastName,dob,profile_photo,role_id],
         function(err) {
             if (err) {
                 return console.error(err.message); // Corrected console.error
