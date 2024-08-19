@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voters Registration</title>
+<%- include("./layouts/header") %>
+
     <link rel="stylesheet" href="/css/voters.css">
 </head>
 <body>
-   
+    <header>
+        <!-- <%- include("./layouts/navbar") %> -->
+        <%- include("./layouts/sidebar") %>
+         <!-- Sidebar -->
+       
+         
+       </header>
     <div class="container">
         <h2>VOTERS REGISTRATION</h2>
         <form id="registrationForm" action="/voters" method="post" nctype="multipart/form-data">
@@ -52,13 +54,36 @@
             </div>
             <div class="form-group">
                 <label for="role_id">Role:</label>
+                <select name="role_id" id="role_id">
+                    <% roles.forEach(role => { %>
+                        <option value="<%= role.id %>"><%= role.role %></option>
+                    <% }) %>
+                </select>
+            </div>
+           
+            <div class="form-group">
+                <label for="role_id">Party:</label>
                 <select  name="role_id" id="role_id">
-                    <% row.map((row)=>{%>
-                        <option value="<%= row.id %>"><%= row.role %></option>
-                    <%})%>  
+                   <% parties.forEach(party => {%>
+
+                    <option value="<%= party.id %>"><%= party.party %></option>
+                    <% })%>
+                    
                 </select>
 
             </div>
+            <div class="form-group">
+                <label for="role_id">Position:</label>
+                <select  name="role_id" id="role_id">
+                   <% positions.forEach(position => {%>
+
+                    <option value="<%= position.id %>"><%= position.position %></option>
+                    <% })%>
+                    
+                </select>
+
+            </div>
+           
             <button type="submit">Submit</button>
         </form>
     </div>

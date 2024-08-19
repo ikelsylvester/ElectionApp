@@ -1,48 +1,209 @@
+<%- include("layouts/header") %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/adim.css">
+<link rel="stylesheet" href="/css/style.css">
+
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
+    <!--Main Navigation-->
+<header>
+   <%- include("./layouts/navbar") %>
+   <%- include("./layouts/sidebar") %>
+    <!-- Sidebar -->
+  
+    
+    
+    
+<link rel="stylesheet" href="/css/style.css" />
+
+ </head>
+
+ <body>
     <header>
-        <div class="container">
-            <h1>Dashboard</h1>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+        <!-- Sidebar -->
+     
+        
+    
+     <main style="margin-top: 70px " id="content-area">
+        
+         <h1 class="mb-4" style="text-align: center;">Result Dashboard</h1>
+         <div class="container pt-2 bg-light">
+                 <div class="mb-3" style="margin: 20px;">
+                     <label class="visually-hidden" for="elections-dropdown">Preference</label>
+                     <select class="custom-select" name="elections-dropdown" id="elections-dropdown" required>
+                 <option value="">Select Election</option>
+             </select>
+                 </div>
+                 
+                     <section>
 
-    <aside class="sidebar">
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Users</a></li>
-        </ul>
-    </aside>
+                         <div class="row">
+                             <div class="col-xl-6 col-md-12 mb-4 ">
+                                 <div class="card ">
+                                     <div class="card-body ">
+                                         <div class="d-flex justify-content-between p-md-1 ">
+                                             <div class="d-flex flex-row ">
+                                                 <div class="align-self-center ">
+                                                     <i class="fas fa-pencil-alt text-info fa-3x me-4 "></i>
+                                                 </div>
+                                                 <div>
+                                                     <h4>Registered Voters</h4>
+                                                     <p class="mb-0 ">Total number of registered voters</p>
+                                                 </div>
+                                             </div>
+                                             <div class="align-self-center">
+                                                 <h2 id="registered-voters" class="h1 mb-0">
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             
+                             <div class="col-xl-6 col-md-12 mb-4 ">
+                                 <div class="card ">
+                                     <div class="card-body ">
+                                         <div class="d-flex justify-content-between p-md-1 ">
+                                             <div class="d-flex flex-row ">
+                                                 <div class="align-self-center ">
+                                                     <!-- <i class="fas fa-vote-yea "></i> -->
+                                                     <i class="fas fa-balance-scale text-warning fa-3x me-4 "></i>
+                                                 </div>
+                                                 <div>
+                                                     <h4>Total Votes</h4>
+                                                     <p class="mb-0 ">Total number of votes</p>
+                                                 </div>
+                                             </div>
+                                             <div class="align-self-center ">
+                                                 <h2 class="h1 mb-0 "> </h2>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                        
+                     </section>
+                     <!--Section: Statistics with subtitles-->
 
-    <main class="content">
-        <div class="container">
-            <h2>Dashboard Overview</h2>
-            <p>Welcome to your dashboard! Here's a quick overview of your activities.</p>
-            <!-- Your content here -->
-        </div>
-    </main>
+                     <!--Section: Minimal statistics cards-->
+                     <section id="contestants-results">
+                        <article>
+                            <h2>Chairman</h2>
+                            <div class="row ">
+                               
+                                  <div class="col-md-4 mb-4">
+                                    <div class="card ">
+                                      <div class="card-body ">
+                                        <div class="d-flex justify-content-between px-md-1 ">
+                                          <div class="align-self-center ">
+                                            <img src=" " class="img-fluid text-info fa-3x" />
+                                            <h6 class="card-title name"></h6>
+                                            <p class="card-text party"><img src="" class="img-fluid text-info fa-3x" /> </p>
+                                          </div>
+                                          <div class="text-end ">
+                                            <h3></h3>
+                                            <p class="mb-0 ">Vote</p>
+                                          </div>
+                                        </div>
+                                        <div class="px-md-1 ">
+                                          <div class="progress mt-3 mb-1 rounded " style="height: 15px ">
+                                            <div class="progress-bar bg-info " role="progressbar " style=" " aria-valuenow=" " aria-valuemin="0 " aria-valuemax="100 "></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                            </div>
+                          </article>
+                          
+                        
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 My Election App. All rights reserved.</p>
-        </div>
-    </footer>
+                          <article>
+                            <h2>Chairlady</h2>
+                            <div class="row ">
+                               
+                                  <div class="col-md-4 mb-4">
+                                    <div class="card ">
+                                      <div class="card-body ">
+                                        <div class="d-flex justify-content-between px-md-1 ">
+                                          <div class="align-self-center ">
+                                            <img src="" class="img-fluid text-info fa-3x" />
+                                            <h6 class="card-title name"></h6>
+                                            <p class="card-text party"><img src="" class="img-fluid text-info fa-3x" /> </p>
+                                          </div>
+                                          <div class="text-end ">
+                                            <h3></h3>
+                                            <p class="mb-0 ">Votes</p>
+                                          </div>
+                                        </div>
+                                        <div class="px-md-1 ">
+                                          <div class="progress mt-3 mb-1 rounded " style="height: 15px ">
+                                            <div class="progress-bar bg-info " role="progressbar " style="" aria-valuenow=" " aria-valuemin="0 " aria-valuemax="100 "></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                          </article>
+
+                          <article>
+                            <h2>Youth Coordinator</h2>
+                            <div class="row ">
+                               
+                                  <div class="col-md-4 mb-4">
+                                    <div class="card ">
+                                      <div class="card-body ">
+                                        <div class="d-flex justify-content-between px-md-1 ">
+                                          <div class="align-self-center ">
+                                            <img src="" class="img-fluid text-info fa-3x" />
+                                            <h6 class="card-title name"></h6>
+                                            <p class="card-text party"><img src="" class="img-fluid text-info fa-3x" /></p>
+                                          </div>
+                                          <div class="text-end ">
+                                            <h3> </h3>
+                                            <p class="mb-0 ">Votes</p>
+                                          </div>
+                                        </div>
+                                        <div class="px-md-1 ">
+                                          <div class="progress mt-3 mb-1 rounded " style="height: 15px ">
+                                            <div class="progress-bar bg-info " role="progressbar " style=" " aria-valuenow="" aria-valuemin="0 " aria-valuemax="100 "></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                      
+                            </div>
+                          </article>
+                         
+                        
+                     </section>
+                     <!--Section: Minimal statistics cards-->
+         </div>
+
+
+
+     </main>
+
+     <script src="/js/dashboard.js"></script>
+     
+ 
+     
+  </header>
+  <!--Main Navigation-->
+  
+  <!--Main layout-->
+  <main style="margin-top: 58px;">
+    <div class="container pt-4"></div>
+  </main>
+  <!--Main layout-->
+  <script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
+></script>
 </body>
 </html>
